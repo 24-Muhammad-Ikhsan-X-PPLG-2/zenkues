@@ -1,3 +1,4 @@
+import { Link } from '@inertiajs/react';
 import React from 'react';
 
 const CTABannerSection = () => {
@@ -8,10 +9,14 @@ const CTABannerSection = () => {
                 <div className="text-sm text-gray-600">Start creating forms for free — no credit card required.</div>
             </div>
             <div className="flex gap-3">
-                <button className="cursor-pointer rounded-lg border border-transparent bg-white px-4 py-2 font-semibold text-purple-600">
-                    Sign Up
+                <Link href={'/register'}>
+                    <button className="cursor-pointer rounded-lg border border-transparent bg-white px-4 py-2 font-semibold text-purple-600 transition duration-200 hover:-translate-y-1 hover:scale-105 hover:shadow-2xl">
+                        Sign Up
+                    </button>
+                </Link>
+                <button className="cursor-pointer rounded-lg bg-purple-600 px-4 py-2 font-semibold text-white transition duration-200 hover:-translate-y-1 hover:scale-105 hover:shadow-2xl">
+                    Create Form
                 </button>
-                <button className="cursor-pointer rounded-lg bg-purple-600 px-4 py-2 font-semibold text-white">Create Form</button>
             </div>
         </section>
     );
