@@ -1,3 +1,4 @@
+import { Link } from '@inertiajs/react';
 import React from 'react';
 
 const HeroSection = () => {
@@ -17,10 +18,12 @@ const HeroSection = () => {
                     </p>
 
                     <div className="mt-6 flex flex-wrap gap-3">
-                        <button className="inline-flex cursor-pointer items-center gap-2 rounded-lg bg-purple-600 px-4 py-2 font-semibold text-white shadow transition duration-200 hover:-translate-y-1 hover:scale-105 hover:bg-purple-700 hover:shadow-2xl">
-                            Create Form
-                        </button>
-                        <button className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-purple-100 px-4 py-2 font-semibold text-purple-600">
+                        <Link href="/register">
+                            <button className="inline-flex cursor-pointer items-center gap-2 rounded-lg bg-purple-600 px-4 py-2 font-semibold text-white shadow transition duration-200 hover:-translate-y-1 hover:scale-105 hover:bg-purple-700 hover:shadow-2xl">
+                                Create Form
+                            </button>
+                        </Link>
+                        <button className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-purple-100 px-4 py-2 font-semibold text-purple-600 hover:shadow-2xl transition duration-200 hover:-translate-y-1 hover:scale-105 hover:bg-purple-50">
                             Learn More
                         </button>
                     </div>

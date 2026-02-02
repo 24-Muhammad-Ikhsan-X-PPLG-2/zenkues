@@ -6,9 +6,9 @@ import HeroSection from '@/components/Landing/HeroSection';
 import HowItWorksSection from '@/components/Landing/HowItWorksSection';
 import TestimonialsSection from '@/components/Landing/TestimonialsSection';
 import WhyChooseSection from '@/components/Landing/WhyChooseSection';
-import React from 'react';
+import { FC } from 'react';
 
-const Landing: React.FC = () => {
+const Landing: FC = () => {
     return (
         <ContainerLanding>
             {/* Hero */}

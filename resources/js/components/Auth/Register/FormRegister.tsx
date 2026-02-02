@@ -3,7 +3,8 @@ import React, { useMemo, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import z from 'zod';
 import SocialButton from '../Login/SocialButton';
-import { Link } from '@inertiajs/react';
+import { Link, router, usePage } from '@inertiajs/react';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 const schema = z
     .object({
@@ -28,7 +29,7 @@ type SchemaType = z.infer<typeof schema>;
 const FormRegister = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-
+    const { errors: errorsFromLaravel } = usePage().props;
     const {
         register,
         handleSubmit,
@@ -55,12 +56,19 @@ const FormRegister = () => {
 
     const onSubmit: SubmitHandler<SchemaType> = (data) => {
         setIsLoading(true);
-        setTimeout(() => {
-            console.log('Register data', data);
-            setIsLoading(false);
-        }, 1500);
+        router.post(
+            '/register',
+            {
+                name: data.name,
+                email: data.email,
+                password: data.password,
+                password_confirmation: data.passwordConfirm,
+            },
+            {
+                onFinish: () => setIsLoading(false),
+            },
+        );
     };
-
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div>
@@ -70,9 +78,10 @@ const FormRegister = () => {
                     {...register('name')}
                     className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm placeholder-gray-400 transition focus:border-transparent focus:ring-2 focus:ring-indigo-200 focus:outline-none"
                     placeholder="Your name"
-                    aria-invalid={!!errors.name}
+                    aria-invalid={!!errors.name || !!errorsFromLaravel.name}
                 />
                 {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name.message}</p>}
+                {errorsFromLaravel?.name && <p className="mt-1 text-xs text-red-500">{errorsFromLaravel.name}</p>}
             </div>
 
             <div>
@@ -82,9 +91,10 @@ const FormRegister = () => {
                     {...register('email')}
                     className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm placeholder-gray-400 transition focus:border-transparent focus:ring-2 focus:ring-indigo-200 focus:outline-none"
                     placeholder="you@company.com"
-                    aria-invalid={!!errors.email}
+                    aria-invalid={!!errors.email || !!errorsFromLaravel.email}
                 />
                 {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>}
+                {errorsFromLaravel?.email && <p className="mt-1 text-xs text-red-500">{errorsFromLaravel.email}</p>}
             </div>
 
             <div>
@@ -95,7 +105,7 @@ const FormRegister = () => {
                         {...register('password')}
                         className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2 pr-10 text-sm placeholder-gray-400 transition focus:border-transparent focus:ring-2 focus:ring-indigo-200 focus:outline-none"
                         placeholder="Create a password"
-                        aria-invalid={!!errors.password}
+                        aria-invalid={!!errors.password || !!errorsFromLaravel.password}
                     />
                     <button
                         type="button"
@@ -107,6 +117,7 @@ const FormRegister = () => {
                     </button>
                 </div>
                 {errors.password && <p className="mt-1 text-xs text-red-500">{errors.password.message}</p>}
+                {errorsFromLaravel?.password && <p className="mt-1 text-xs text-red-500">{errorsFromLaravel.password}</p>}
 
                 <div className="mt-2">
                     <div className="mb-1 flex items-center justify-between text-xs text-gray-500">
@@ -153,7 +164,14 @@ const FormRegister = () => {
                     disabled={isLoading}
                     className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition duration-200 hover:-translate-y-1 hover:bg-indigo-700 hover:shadow-xl disabled:cursor-not-allowed disabled:bg-gray-500 disabled:opacity-50"
                 >
-                    {isLoading ? 'Creating account...' : 'Sign up'}
+                    {isLoading ? (
+                        <>
+                            <LoadingSpinner />
+                            Signing up...
+                        </>
+                    ) : (
+                        'Sign up'
+                    )}
                 </button>
             </div>
 
