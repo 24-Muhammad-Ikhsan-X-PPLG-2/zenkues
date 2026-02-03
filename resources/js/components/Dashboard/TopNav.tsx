@@ -1,5 +1,5 @@
 import { User } from '@/types';
-import { router } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import ModalLogout from './ModalLogout';
@@ -34,7 +34,9 @@ const TopNav: FC<TopNavProps> = ({ profile }) => {
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 items-center justify-between">
                         <div className="flex items-center space-x-4">
-                            <div className="text-2xl font-semibold text-indigo-600">Zenkues</div>
+                            <Link href={'/dashboard'} className="text-2xl font-semibold text-indigo-600">
+                                Zenkues
+                            </Link>
                             <div className="hidden sm:block">
                                 <label className="relative block">
                                     <span className="sr-only">Search</span>
@@ -93,12 +95,12 @@ const TopNav: FC<TopNavProps> = ({ profile }) => {
                                         className="absolute right-0 z-10 mt-2 w-48 rounded-md border border-gray-100 bg-white py-1 shadow-lg"
                                         ref={dropdownRef}
                                     >
-                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                                        <Link href="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
                                             Profile
-                                        </a>
-                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                                        </Link>
+                                        <Link href="/dashboard/settings" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
                                             Settings
-                                        </a>
+                                        </Link>
                                         <p
                                             className="block cursor-pointer px-4 py-2 text-sm text-red-600 hover:bg-gray-50"
                                             onClick={() => setOpenModalLogout(true)}

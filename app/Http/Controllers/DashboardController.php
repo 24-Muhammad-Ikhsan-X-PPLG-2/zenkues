@@ -14,7 +14,14 @@ class DashboardController extends Controller
         $data = [
             'profile' => Auth::user(),
         ];
-        return Inertia::render('dashboard', $data);
+        return Inertia::render('dashboard/index', $data);
+    }
+    public function settings()
+    {
+        $data = [
+            'profile' => Auth::user(),
+        ];
+        return Inertia::render('dashboard/settings', $data);
     }
     public function getForms()
     {

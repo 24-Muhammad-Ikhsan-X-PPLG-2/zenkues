@@ -1,11 +1,12 @@
+import { Link } from '@inertiajs/react';
 import React, { FC } from 'react';
 
 const nav = [
-    { name: 'Dashboard', key: 'dashboard' },
-    { name: 'My Forms', key: 'forms' },
-    { name: 'Templates', key: 'templates' },
-    { name: 'Responses', key: 'responses' },
-    { name: 'Settings', key: 'settings' },
+    { name: 'Dashboard', key: 'dashboard', url: '/dashboard' },
+    { name: 'My Forms', key: 'forms', url: '/dashboard/forms' },
+    { name: 'Templates', key: 'templates', url: '/dashboard/templates' },
+    { name: 'Responses', key: 'responses', url: '/dashboard/responses' },
+    { name: 'Settings', key: 'settings', url: '/dashboard/settings' },
 ];
 
 type SidebarProps = {
@@ -17,9 +18,9 @@ const Sidebar: FC<SidebarProps> = ({ active = 'dashboard' }) => {
         <aside className="hidden border-r border-gray-50 bg-white md:flex md:w-64 md:flex-col md:gap-4 md:px-4 md:py-6">
             <nav className="space-y-1">
                 {nav.map((item) => (
-                    <a
+                    <Link
                         key={item.key}
-                        href="#"
+                        href={item.url}
                         className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm ${
                             active === item.key ? 'bg-indigo-50 font-medium text-indigo-700' : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
                         }`}
@@ -40,7 +41,7 @@ const Sidebar: FC<SidebarProps> = ({ active = 'dashboard' }) => {
                             </span>
                         )}
                         <span>{item.name}</span>
-                    </a>
+                    </Link>
                 ))}
             </nav>
         </aside>

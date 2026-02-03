@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react';
-import TopNav from '../components/Dashboard/TopNav';
-import Sidebar from '../components/Dashboard/Sidebar';
-import QuickActions from '../components/Dashboard/QuickActions';
-import FormCard from '../components/Dashboard/FormCard';
-import EmptyState from '../components/Dashboard/EmptyState';
+import TopNav from '../../components/Dashboard/TopNav';
+import Sidebar from '../../components/Dashboard/Sidebar';
+import QuickActions from '../../components/Dashboard/QuickActions';
+import FormCard from '../../components/Dashboard/FormCard';
+import EmptyState from '../../components/Dashboard/EmptyState';
 import { User } from '@/types/auth';
 import { useQuery } from '@tanstack/react-query';
 
@@ -25,7 +25,7 @@ type DashboardProps = {
     profile: User;
 };
 
-const fetchForms = async () => {
+const fetchForms = async (): Promise<FormItem[]> => {
     const res = await fetch('/api/v1/get_forms');
     if (!res.ok) {
         throw new Error('Failed to fetch forms');
@@ -62,12 +62,19 @@ const Dashboard: FC<DashboardProps> = ({ profile }) => {
                                 <h2 className="text-lg font-medium text-gray-900">Your forms</h2>
                                 <p className="text-sm text-gray-500">Manage and view responses</p>
                             </div>
-                            {forms && forms.length === 0 ? (
+                            {forms && !isLoading && forms.length === 0 ? (
                                 <EmptyState onCreate={() => alert('Create new form')} />
                             ) : (
                                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                                     {forms?.map((f) => (
                                         <FormCard key={f.id} id={f.id} title={f.title} description={f.description} />
+                                    ))}
+                                </div>
+                            )}
+                            {!forms && isLoading && (
+                                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                                    {Array.from({ length: 6 }).map((_, n) => (
+                                        <div key={n} className="h-32 animate-pulse rounded-lg bg-gray-200"></div>
                                     ))}
                                 </div>
                             )}

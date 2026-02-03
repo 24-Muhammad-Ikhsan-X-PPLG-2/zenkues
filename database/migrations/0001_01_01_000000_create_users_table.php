@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->enum('provider', ['email', 'google'])->default('email');
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('organization')->nullable();
+            $table->string('bio')->nullable()->default('Hello! I am using Zenkues.');
             $table->string('password');
             $table->jsonb('settings')->default('{"theme": "light", "notifications": true, "auto_save": true}');
             $table->rememberToken();

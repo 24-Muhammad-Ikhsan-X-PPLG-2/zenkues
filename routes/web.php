@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -23,7 +24,16 @@ Route::group(['middleware' => ['guest']], function () {
 Route::get('/', [HomeController::class, 'landing'])->name('home');
 Route::group(['middleware' => ['auth']], function () {
     // GET Routes
-    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::prefix('dashboard')->group(function () {
+        Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
+        Route::get('/settings', [DashboardController::class, 'settings'])->name('dashboard.settings');
+    });
+    Route::prefix('profile')->group(function () {
+        // GET Routes
+        Route::get('/', [ProfileController::class, 'profile'])->name('profile');
+        // PUT Routes
+        Route::put('/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
+    });
     // API Routes
     Route::get('/api/v1/get_forms', [DashboardController::class, 'getForms'])->name('dashboard.get_forms');
     // DELETE Routes
