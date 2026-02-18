@@ -1,36 +1,41 @@
-import { Link, router } from '@inertiajs/react';
-import React, { FormEvent, useState } from 'react';
+import { Link, router, usePage } from '@inertiajs/react';
+import React, { SyntheticEvent, useState } from 'react';
 
 const ForgotPassword: React.FC = () => {
     const [email, setEmail] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [submitting, setSubmitting] = useState(false);
-    const [sent, setSent] = useState(false);
+    const {
+        flash: { success },
+    } = usePage().props;
 
-    const handleSubmit = async (e: FormEvent) => {
+    const handleSubmit = (e: SyntheticEvent) => {
         e.preventDefault();
         setError(null);
         if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
             setError('Please enter a valid email address.');
             return;
         }
-
-        setSubmitting(true);
         try {
             // Attempt to send a reset request. The endpoint can be swapped
             // for an Inertia call or a named route as needed by the app.
-            router.post('/forgot-password', { email });
+            router.post(
+                '/forgot-password',
+                { email },
+                {
+                    onBefore: () => setSubmitting(true),
+                    onFinish: () => setSubmitting(false),
+                    onError: (err) => setError(err.email || 'Something wrong'),
+                },
+            );
 
             // For privacy we show the same success state whether or not the
             // email exists in the system.
-            setSent(true);
         } catch (err) {
             setError('Something went wrong. Please try again later.');
-        } finally {
-            setSubmitting(false);
         }
     };
-
+    console.log(submitting);
     return (
         <div className="flex min-h-screen items-center justify-center bg-white px-4 py-12 sm:px-6 lg:px-8">
             <div className="absolute inset-0 -z-10 overflow-hidden">
@@ -67,12 +72,12 @@ const ForgotPassword: React.FC = () => {
                 <h1 className="text-2xl font-semibold text-gray-900">Forgot your password?</h1>
                 <p className="mt-2 text-sm text-gray-500">Enter your email address and we’ll send you a link to reset your password.</p>
 
-                {sent ? (
+                {success ? (
                     <div className="mt-6 rounded-md border border-green-100 bg-green-50 p-4">
                         <p className="text-sm text-green-800">If an account exists for this email, a password reset link has been sent.</p>
                     </div>
                 ) : (
-                    <form className="mt-6" onSubmit={handleSubmit} noValidate>
+                    <form className="mt-6" onSubmit={handleSubmit}>
                         <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                             Email address
                         </label>

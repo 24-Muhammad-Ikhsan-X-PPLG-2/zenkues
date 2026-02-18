@@ -7,8 +7,8 @@ const ColorSwatch: FC<{ value: string; onChange: (v: string) => void; colors: st
                 key={c}
                 onClick={() => onChange(c)}
                 aria-label={c}
-                className={`h-8 w-8 rounded-full ring-2 ring-transparent transition-shadow ${
-                    value === c ? 'shadow-md ring-indigo-300' : 'hover:shadow-sm'
+                className={`h-8 w-8 cursor-pointer rounded-full ring-2 transition-shadow ${
+                    value === c ? 'shadow-md ring-indigo-300' : 'ring-transparent hover:shadow-sm'
                 }`}
                 style={{ background: c }}
             />

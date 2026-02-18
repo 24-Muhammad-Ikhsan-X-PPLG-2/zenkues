@@ -10,13 +10,15 @@ export default function EmptyState({ onCreate }: { onCreate?: () => void }) {
                         <path d="M7 7V5a3 3 0 013-3h4a3 3 0 013 3v2" strokeWidth="1.5" />
                     </svg>
                 </div>
-                <h3 className="text-2xl font-semibold text-gray-900">Create your first form</h3>
-                <p className="mt-2 text-sm text-gray-500">Collect responses, customize themes, and share with anyone.</p>
+                <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">Create your first form</h3>
+                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Collect responses, customize themes, and share with anyone.</p>
                 <div className="mt-6 flex justify-center gap-3">
                     <button onClick={onCreate} className="rounded-md bg-indigo-600 px-4 py-2 text-white shadow-sm hover:bg-indigo-500">
                         Create New Form
                     </button>
-                    <button className="rounded-md border border-gray-200 px-4 py-2 text-gray-700 hover:bg-gray-50">Use Template</button>
+                    <button className="cursor-pointer rounded-md border border-gray-200 px-4 py-2 text-gray-700 hover:bg-gray-50 dark:border-gray-800 dark:text-white dark:hover:bg-gray-800">
+                        Use Template
+                    </button>
                 </div>
             </div>
         </div>

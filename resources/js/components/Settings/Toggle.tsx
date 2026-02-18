@@ -5,10 +5,10 @@ const Toggle: FC<{ checked: boolean; onChange: (v: boolean) => void; label?: str
         <button
             aria-pressed={checked}
             onClick={() => onChange(!checked)}
-            className={`inline-flex h-8 w-14 items-center rounded-full p-1 transition-colors ${checked ? 'bg-indigo-500' : 'bg-gray-200'}`}
+            className={`inline-flex h-8 w-14 cursor-pointer items-center rounded-full p-1 transition-colors ${checked ? 'bg-indigo-500' : 'bg-gray-200 dark:bg-gray-700'}`}
         >
             <span
-                className={`inline-block h-6 w-6 transform rounded-full bg-white shadow-sm transition-transform ${
+                className={`inline-block h-6 w-6 transform rounded-full bg-white shadow-sm transition-transform dark:bg-gray-800 ${
                     checked ? 'translate-x-6' : 'translate-x-0'
                 }`}
             />

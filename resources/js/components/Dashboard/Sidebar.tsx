@@ -15,14 +15,16 @@ type SidebarProps = {
 
 const Sidebar: FC<SidebarProps> = ({ active = 'dashboard' }) => {
     return (
-        <aside className="hidden border-r border-gray-50 bg-white md:flex md:w-64 md:flex-col md:gap-4 md:px-4 md:py-6">
+        <aside className="hidden border-r border-gray-50 bg-white md:flex md:w-64 md:flex-col md:gap-4 md:px-4 md:py-6 dark:border-gray-800 dark:bg-gray-900">
             <nav className="space-y-1">
                 {nav.map((item) => (
                     <Link
                         key={item.key}
                         href={item.url}
                         className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm ${
-                            active === item.key ? 'bg-indigo-50 font-medium text-indigo-700' : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
+                            active === item.key
+                                ? 'bg-indigo-50 font-medium text-indigo-700 dark:bg-gray-800'
+                                : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-500 dark:hover:bg-gray-800 dark:hover:text-white'
                         }`}
                     >
                         {active === item.key ? (

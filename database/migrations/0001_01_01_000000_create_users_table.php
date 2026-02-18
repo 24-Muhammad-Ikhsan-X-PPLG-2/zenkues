@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('organization')->nullable();
             $table->string('bio')->nullable()->default('Hello! I am using Zenkues.');
             $table->string('password');
-            $table->jsonb('settings')->default('{"theme": "light", "notifications": true, "auto_save": true}');
+            $table->jsonb('settings')->default('{"appearance":{"theme":"light","accent":"#7c3aed","density":"Comfortable"},"notifications":true,"auto_save":true}');
             $table->rememberToken();
             $table->timestamps();
         });

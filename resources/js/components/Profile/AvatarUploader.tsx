@@ -23,7 +23,7 @@ const AvatarUploader: FC<{
     return (
         <div className="flex items-center gap-4">
             <div className="relative">
-                <div className="h-28 w-28 overflow-hidden rounded-full bg-gradient-to-tr from-indigo-50 to-blue-50 shadow-sm">
+                <div className="h-28 w-28 overflow-hidden rounded-full bg-indigo-50 shadow-sm dark:bg-gray-800">
                     {preview ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img src={preview} alt="avatar" className="h-full w-full object-cover" />
@@ -34,7 +34,7 @@ const AvatarUploader: FC<{
                 <button
                     type="button"
                     onClick={() => inputRef.current?.click()}
-                    className="absolute -right-2 -bottom-2 rounded-full bg-white p-1 text-sm shadow hover:bg-gray-50"
+                    className="absolute -right-2 -bottom-2 cursor-pointer rounded-full bg-white p-1 text-sm shadow hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
                     aria-label="Upload avatar"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">

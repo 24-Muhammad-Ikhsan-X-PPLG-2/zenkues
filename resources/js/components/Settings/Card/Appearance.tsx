@@ -5,7 +5,7 @@ import ColorSwatch from '../ColorSwatch';
 
 type AppearanceProps = {
     theme: string;
-    setTheme: (v: string) => void;
+    setTheme: (v: 'Light' | 'Dark' | string) => void;
     accent: string;
     setAccent: (v: string) => void;
     density: string;
@@ -18,7 +18,7 @@ const Appearance: FC<AppearanceProps> = ({ theme, setTheme, accent, setAccent, d
             <Card title="Appearance" description="Control theme, color, and UI density">
                 <div className="flex items-center justify-between">
                     <div>
-                        <p className="text-sm font-medium text-gray-800">Theme</p>
+                        <p className="text-sm font-medium text-gray-800 dark:text-gray-200">Theme</p>
                         <p className="mt-1 text-xs text-gray-500">Light, dark, or follow system preference.</p>
                     </div>
                     <Select value={theme} onChange={setTheme} options={['Light', 'Dark', 'System']} />
@@ -26,7 +26,7 @@ const Appearance: FC<AppearanceProps> = ({ theme, setTheme, accent, setAccent, d
 
                 <div className="flex items-center justify-between">
                     <div>
-                        <p className="text-sm font-medium text-gray-800">Accent color</p>
+                        <p className="text-sm font-medium text-gray-800 dark:text-gray-200">Accent color</p>
                         <p className="mt-1 text-xs text-gray-500">Pick an accent color used throughout the UI.</p>
                     </div>
                     <ColorSwatch value={accent} onChange={setAccent} colors={['#6366f1', '#7c3aed', '#06b6d4', '#2563eb', '#ef4444', '#f59e0b']} />
@@ -34,7 +34,7 @@ const Appearance: FC<AppearanceProps> = ({ theme, setTheme, accent, setAccent, d
 
                 <div className="flex items-center justify-between">
                     <div>
-                        <p className="text-sm font-medium text-gray-800">UI density</p>
+                        <p className="text-sm font-medium text-gray-800 dark:text-gray-200">UI density</p>
                         <p className="mt-1 text-xs text-gray-500">Adjust spacing for comfortable or compact layouts.</p>
                     </div>
                     <Select value={density} onChange={setDensity} options={['Comfortable', 'Compact']} />

@@ -41,7 +41,7 @@ class AuthController extends Controller
             'password' => $validated['password'],
         ], $validated['remember'] ?? false)) {
             request()->session()->regenerate();
-            Log::info("User logged in: user_email = {$validated['email']}");
+            Log::info("user logged in: user_email = {$validated['email']}");
             return redirect()->intended('/dashboard');
         }
         return back()->withErrors([
@@ -65,7 +65,7 @@ class AuthController extends Controller
         ]);
         Password::sendResetLink($request->only('email'));
         Log::info("Password reset link requested for email: {$validated['email']}");
-        return back()->with('status', 'If your email is registered, a password reset link has been sent.');
+        return back()->with('success', 'If your email is registered, a password reset link has been sent.');
     }
     public function resetPassword(Request $request)
     {

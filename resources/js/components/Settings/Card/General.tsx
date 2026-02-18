@@ -18,7 +18,7 @@ const General: FC<GeneralProps> = ({ autoSave, setAutoSave, privacy, setPrivacy,
             <Card title="General" description="Basic form and account defaults">
                 <div className="flex items-center justify-between">
                     <div>
-                        <p className="text-sm font-medium text-gray-800">Auto-save</p>
+                        <p className="text-sm font-medium text-gray-800 dark:text-gray-200">Auto-save</p>
                         <p className="mt-1 text-xs text-gray-500">Automatically save form changes as you work.</p>
                     </div>
                     <Toggle checked={autoSave} onChange={setAutoSave} />
@@ -26,7 +26,7 @@ const General: FC<GeneralProps> = ({ autoSave, setAutoSave, privacy, setPrivacy,
 
                 <div className="flex items-center justify-between">
                     <div>
-                        <p className="text-sm font-medium text-gray-800">Default privacy</p>
+                        <p className="text-sm font-medium text-gray-800 dark:text-gray-200">Default privacy</p>
                         <p className="mt-1 text-xs text-gray-500">Choose default visibility for newly created forms.</p>
                     </div>
                     <Select value={privacy} onChange={setPrivacy} options={['Private', 'Team', 'Public']} />
@@ -34,7 +34,7 @@ const General: FC<GeneralProps> = ({ autoSave, setAutoSave, privacy, setPrivacy,
 
                 <div className="flex items-center justify-between">
                     <div>
-                        <p className="text-sm font-medium text-gray-800">Language</p>
+                        <p className="text-sm font-medium text-gray-800 dark:text-gray-200">Language</p>
                         <p className="mt-1 text-xs text-gray-500">Interface language for Zenkues.</p>
                     </div>
                     <Select value={language} onChange={setLanguage} options={['English', 'Español', 'Français', 'Deutsch']} />

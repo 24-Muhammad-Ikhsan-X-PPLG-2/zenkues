@@ -8,9 +8,20 @@ export type User = {
     organization?: string;
     created_at: string;
     updated_at: string;
+    settings: string;
     [key: string]: unknown; // This allows for additional properties...
 };
 
 export type Auth = {
     user: User;
+};
+
+export type SettingsUser = {
+    auto_save: boolean;
+    appearance: {
+        theme: 'Light' | 'Dark' | 'System' | string;
+        accent: string;
+        density: string;
+    };
+    notifications: boolean;
 };

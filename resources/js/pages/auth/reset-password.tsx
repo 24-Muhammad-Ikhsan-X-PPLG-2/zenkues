@@ -1,4 +1,4 @@
-import { Link, router } from '@inertiajs/react';
+import { Link, router, usePage } from '@inertiajs/react';
 import { Eye, EyeOff } from 'lucide-react';
 import React, { FormEvent, useMemo, useState } from 'react';
 
@@ -69,7 +69,9 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ token, email }) => {
     const [confirm, setConfirm] = useState('');
     const [errors, setErrors] = useState<{ password?: string; confirm?: string } | null>(null);
     const [submitting, setSubmitting] = useState(false);
-    const [success, setSuccess] = useState(false);
+    const {
+        flash: { success },
+    } = usePage().props;
 
     const score = useMemo(() => scorePassword(password), [password]);
 
@@ -93,18 +95,22 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ token, email }) => {
         return Object.keys(e).length === 0;
     };
 
-    const handleSubmit = async (e: FormEvent) => {
+    const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         if (!validate()) return;
-        setSubmitting(true);
         try {
             // Replace with actual Inertia route or API call as needed.
-            router.post('/reset-password', { password, password_confirmation: confirm, email, token });
-            setSuccess(true);
+            router.post(
+                '/reset-password',
+                { password, password_confirmation: confirm, email, token },
+                {
+                    onBefore: () => setSubmitting(true),
+                    onFinish: () => setSubmitting(false),
+                    onError: (err) => setErrors({ password: err.password || 'Something wrong.' }),
+                },
+            );
         } catch (err) {
             setErrors({ password: 'Something went wrong. Please try again.' });
-        } finally {
-            setSubmitting(false);
         }
     };
 

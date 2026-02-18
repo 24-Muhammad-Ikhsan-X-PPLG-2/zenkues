@@ -30,7 +30,7 @@ const TopNav: FC<TopNavProps> = ({ profile }) => {
     return (
         <>
             <ModalLogout openModalLogout={openModalLogout} setOpenModalLogout={setOpenModalLogout} handleLogout={handleLogout} />
-            <header className="w-full border-b border-gray-100 bg-white">
+            <header className="w-full border-b border-gray-100 bg-white dark:border-gray-800 dark:bg-gray-900">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 items-center justify-between">
                         <div className="flex items-center space-x-4">
@@ -41,7 +41,7 @@ const TopNav: FC<TopNavProps> = ({ profile }) => {
                                 <label className="relative block">
                                     <span className="sr-only">Search</span>
                                     <input
-                                        className="block w-full rounded-md border border-gray-200 bg-gray-50 py-2 pr-3 pl-3 text-sm placeholder:text-gray-400 placeholder:italic focus:ring-2 focus:ring-indigo-200 focus:outline-none"
+                                        className="block w-full rounded-md border border-gray-200 bg-gray-50 py-2 pr-3 pl-3 text-sm outline-none placeholder:text-gray-400 placeholder:italic focus:ring-2 focus:ring-indigo-200 focus:outline-none dark:border-gray-800 dark:bg-gray-900"
                                         placeholder="Search forms, templates..."
                                         type="text"
                                         name="search"
@@ -51,7 +51,7 @@ const TopNav: FC<TopNavProps> = ({ profile }) => {
                         </div>
 
                         <div className="flex items-center space-x-4">
-                            <button className="cursor-pointer rounded-md p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700">
+                            <button className="cursor-pointer rounded-md p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-white dark:hover:bg-gray-800 dark:hover:text-gray-200">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path
                                         strokeLinecap="round"
@@ -65,7 +65,7 @@ const TopNav: FC<TopNavProps> = ({ profile }) => {
                             <div className="relative">
                                 <button
                                     onClick={() => setOpen((v) => !v)}
-                                    className="flex cursor-pointer items-center space-x-2 rounded-md p-1 hover:bg-gray-100"
+                                    className="flex cursor-pointer items-center space-x-2 rounded-md p-1 hover:bg-gray-100 dark:hover:bg-gray-800"
                                 >
                                     {profile.avatar && !isImgError ? (
                                         <img
@@ -80,7 +80,7 @@ const TopNav: FC<TopNavProps> = ({ profile }) => {
                                             <span className="text-sm font-medium text-gray-600">{profile.name.charAt(0).toUpperCase()}</span>
                                         </div>
                                     )}
-                                    <span className="hidden text-sm text-gray-700 sm:block">{profile.name}</span>
+                                    <span className="hidden text-sm text-gray-700 sm:block dark:text-white">{profile.name}</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
                                         <path
                                             fillRule="evenodd"
@@ -89,26 +89,36 @@ const TopNav: FC<TopNavProps> = ({ profile }) => {
                                         />
                                     </svg>
                                 </button>
-
-                                {open && (
-                                    <div
-                                        className="absolute right-0 z-10 mt-2 w-48 rounded-md border border-gray-100 bg-white py-1 shadow-lg"
-                                        ref={dropdownRef}
-                                    >
-                                        <Link href="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                                            Profile
-                                        </Link>
-                                        <Link href="/dashboard/settings" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                                            Settings
-                                        </Link>
-                                        <p
-                                            className="block cursor-pointer px-4 py-2 text-sm text-red-600 hover:bg-gray-50"
-                                            onClick={() => setOpenModalLogout(true)}
+                                <AnimatePresence mode="wait">
+                                    {open && (
+                                        <motion.div
+                                            initial={{ y: -100, scale: 0 }}
+                                            animate={{ y: 0, scale: 1 }}
+                                            exit={{ y: -100, scale: 0 }}
+                                            className="absolute right-0 z-10 mt-2 w-48 rounded-md border border-gray-100 bg-white py-1 shadow-lg dark:border-gray-800 dark:bg-gray-900"
+                                            ref={dropdownRef}
                                         >
-                                            Sign out
-                                        </p>
-                                    </div>
-                                )}
+                                            <Link
+                                                href="/profile"
+                                                className="block cursor-pointer px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 dark:text-white dark:hover:bg-gray-800"
+                                            >
+                                                Profile
+                                            </Link>
+                                            <Link
+                                                href="/dashboard/settings"
+                                                className="block cursor-pointer px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 dark:text-white dark:hover:bg-gray-800"
+                                            >
+                                                Settings
+                                            </Link>
+                                            <p
+                                                className="block cursor-pointer px-4 py-2 text-sm text-red-500 hover:bg-gray-50 dark:hover:bg-gray-800"
+                                                onClick={() => setOpenModalLogout(true)}
+                                            >
+                                                Sign out
+                                            </p>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
                             </div>
                         </div>
                     </div>
